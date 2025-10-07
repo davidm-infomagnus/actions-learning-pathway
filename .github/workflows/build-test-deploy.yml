@@ -10,12 +10,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
-      - run: npm install --save-dev @next/eslint-plugin-next
+      - run: npm install
       - run: npm test
-      - run: npm install --save-dev eslint-config-prettier
-      - run: yarn add --dev eslint-config-prettier
-      - run: pnpm add --save-dev eslint-config-prettier
-      - run: bun add --dev eslint-config-prettier
   test: 
     needs: build
     runs-on: ubuntu-latest
@@ -26,9 +22,5 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
-      - run: npm install --save-dev @next/eslint-plugin-next
+      - run: npm install
       - run: npm test
-      - run: npm install --save-dev eslint-config-prettier
-      - run: yarn add --dev eslint-config-prettier
-      - run: pnpm add --save-dev eslint-config-prettier
-      - run: bun add --dev eslint-config-prettier
