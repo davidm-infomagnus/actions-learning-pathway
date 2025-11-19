@@ -1,0 +1,41 @@
+{
+  "developers": [
+    {
+      "id": "dev001",
+      "name": "John Smith",
+      "email": "john.smith@company.com",
+      "assignments": [
+        {
+          "project": "Frontend Development",
+          "role": "Lead Developer",
+          "areas": ["UI/UX", "React Components"]
+        }
+      ]
+    },
+    {
+      "id": "dev002",
+      "name": "Jane Doe",
+      "email": "jane.doe@company.com",
+      "assignments": [
+        {
+          "project": "Backend Development",
+          "role": "Senior Developer",
+          "areas": ["API Development", "Database Design"]
+        }
+      ]
+    },
+    {
+      "id": "dev003",
+      "name": "Bob Johnson",
+      "email": "bob.johnson@company.com",
+      "assignments": [
+        {
+          "project": "DevOps",
+          "role": "DevOps Engineer",
+          "areas": ["CI/CD", "GitHub Actions"]
+        }
+      ]
+    }
+  ],
+  "lastUpdated": "2025-11-19"
+}
