@@ -1,0 +1,56 @@
+name: Validate Developer Assignments
+on:
+  push:
+    paths:
+      - 'data/developer-assignments.json'
+  pull_request:
+    paths:
+      - 'data/developer-assignments.json'
+
+jobs:
+  validate-assignments:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        
+      - name: Validate JSON format
+        run: |
+          echo "Validating developer-assignments.json..."
+          if ! jq empty data/developer-assignments.json 2>/dev/null; then
+            echo "Error: Invalid JSON format in developer-assignments.json"
+            exit 1
+          fi
+          echo "✓ JSON format is valid"
+          
+      - name: Validate structure
+        run: |
+          echo "Validating data structure..."
+          
+          # Check if developers array exists
+          if ! jq -e '.developers' data/developer-assignments.json > /dev/null; then
+            echo "Error: 'developers' array is missing"
+            exit 1
+          fi
+          
+          # Check if lastUpdated field exists
+          if ! jq -e '.lastUpdated' data/developer-assignments.json > /dev/null; then
+            echo "Error: 'lastUpdated' field is missing"
+            exit 1
+          fi
+          
+          # Validate each developer has required fields
+          jq -e '.developers[] | select(.id == null or .name == null or .email == null or .assignments == null)' data/developer-assignments.json > /dev/null && {
+            echo "Error: One or more developers are missing required fields (id, name, email, assignments)"
+            exit 1
+          }
+          
+          echo "✓ Data structure is valid"
+          
+      - name: Display assignments summary
+        run: |
+          echo "Developer Assignments Summary:"
+          echo "=============================="
+          jq -r '.developers[] | "Developer: \(.name) (\(.id))\n  Email: \(.email)\n  Assignments: \(.assignments | length)\n"' data/developer-assignments.json
